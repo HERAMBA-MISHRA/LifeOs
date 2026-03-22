@@ -48,12 +48,17 @@ export default function Journal() {
     setLoadingPrompt(true)
     setAiPrompt('Generating your prompt…')
     try {
-      setTimeout(() => {
-        setAiPrompt('✨ ' + PROMPTS[Math.floor(Math.random() * PROMPTS.length)])
-        setLoadingPrompt(false)
-      }, 600)
+      const res = await fetch('/api/ai', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: [{ role: 'user', content: 'Give me a short, thoughtful journaling prompt for today. Please just respond with the core prompt text, nothing else.' }] })
+      })
+      const data = await res.json()
+      if (data.error) throw new Error(data.error)
+      setAiPrompt('✨ ' + data.text)
     } catch (e) {
       setAiPrompt('✨ ' + PROMPTS[Math.floor(Math.random() * PROMPTS.length)])
+    } finally {
       setLoadingPrompt(false)
     }
   }

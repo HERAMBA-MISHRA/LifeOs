@@ -42,12 +42,17 @@ export default function WeeklyReview() {
     setLoading(true)
     setAiSummary('')
     try {
-      setTimeout(() => {
-        setAiSummary(`Here's your weekly review! You completed ${tasksDone} tasks this week, which shows great focus. You journaled for ${jEntries} days, keeping a good record of your thoughts. Your consistency with habits is impressive too, hitting ${habitsHit} check-ins and maintaining a top streak of ${maxStreak} days. Keep up the great work and make next week even better!`)
-        setLoading(false)
-      }, 1500)
+      const res = await fetch('/api/ai', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: [{ role: 'user', content: `Write a 2-3 sentence encouraging weekly review summary based on these stats for the user: completed ${tasksDone} tasks, journaled for ${jEntries} days, checked into habits ${habitsHit} times, and maintained a top streak of ${maxStreak} days. Be encouraging and brief.` }] })
+      })
+      const data = await res.json()
+      if (data.error) throw new Error(data.error)
+      setAiSummary(data.text)
     } catch (e) {
-      setAiSummary('Failed to generate summary.')
+      setAiSummary(`Fallback Summary: Here's your weekly review! You completed ${tasksDone} tasks this week, which shows great focus. You journaled for ${jEntries} days, keeping a good record of your thoughts. Your consistency with habits is impressive too, hitting ${habitsHit} check-ins and maintaining a top streak of ${maxStreak} days. Keep up the great work and make next week even better!`)
+    } finally {
       setLoading(false)
     }
   }

@@ -34,24 +34,30 @@ export default function AICoach() {
     setLoading(true)
 
     const contextStr = buildContext()
+    
+    const messages = chatHist.map(m => ({
+      role: m.role === 'ai' ? 'assistant' : 'user',
+      content: String(m.content)
+    }))
+    messages.push({ role: 'user', content: v })
 
     try {
-      // Simulate API call and fallback safely
-      setTimeout(() => {
-        const responses = [
-          "That's a great question! Based on your progress so far, you're doing well.",
-          "Consider breaking that down into smaller, actionable steps. You've been very consistent this week!",
-          "I suggest focusing on your top priority task today.",
-          "Reflecting on your journey, what's been your biggest win?",
-          "Stay consistent! The small steps are what matter most."
-        ]
-        const reply = responses[Math.floor(Math.random() * responses.length)]
-        
-        addChatMsg({ role: 'ai', content: reply })
-        setLoading(false)
-      }, 700)
+      const res = await fetch('/api/ai', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          system: `You are LifeOS AI Coach. Respond briefly and encouragingly based on user data. ${contextStr}`,
+          messages
+        })
+      })
+      const data = await res.json()
+      if (data.error) throw new Error(data.error)
+      
+      addChatMsg({ role: 'ai', content: data.text })
     } catch (e) {
-      addChatMsg({ role: 'ai', content: 'Connection error — please try again.' })
+      console.error(e)
+      addChatMsg({ role: 'ai', content: 'Connection error — please make sure API keys are configured.' })
+    } finally {
       setLoading(false)
     }
   }
