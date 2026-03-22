@@ -22,7 +22,7 @@ export default function AICoach() {
     const habitsData = habits.map(h => ({ name: h.name, streak: calcStreak(h) }))
     const goalsData = goals.map(g => ({ title: g.title, pct: g.target > 0 ? Math.round((g.current / g.target) * 100) : 0 }))
     const jCount = Object.keys(journal).length
-    return `User's LifeOS data: ${todosDone}/${todos.length} todos completed. Habits: ${JSON.stringify(habitsData)}. Goals: ${JSON.stringify(goalsData)}. Journal entries: ${jCount}. Journal streak: ${calcJournalStreak(journal)} days.`
+    return `User's Paced data: ${todosDone}/${todos.length} todos completed. Habits: ${JSON.stringify(habitsData)}. Goals: ${JSON.stringify(goalsData)}. Journal entries: ${jCount}. Journal streak: ${calcJournalStreak(journal)} days.`
   }
 
   const handleSend = async (textOverride) => {
@@ -46,7 +46,7 @@ export default function AICoach() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
-          system: `You are LifeOS AI Coach. Respond briefly and encouragingly based on user data. ${contextStr}`,
+          system: `You are Paced AI Coach. Respond briefly and encouragingly based on user data. ${contextStr}`,
           messages
         })
       })
@@ -84,7 +84,7 @@ export default function AICoach() {
 
         <div className="chat-window">
           <div className="msg ai">
-            Hey! I'm your LifeOS AI Coach 🌟 I can see your goals, habits and journal — tell me what's on your mind, or pick a quick prompt above.
+            Hey! I'm your Paced AI Coach 🌟 I can see your goals, habits and journal — tell me what's on your mind, or pick a quick prompt above.
           </div>
           
           {chatHist.map((msg, i) => (

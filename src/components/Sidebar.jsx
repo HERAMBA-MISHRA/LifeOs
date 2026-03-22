@@ -45,7 +45,7 @@ export default function Sidebar({ activeSection, onNav }) {
 
   return (
     <aside className="sb">
-      <div className="logo">LifeOS</div>
+      <div className="logo">Paced</div>
 
       <div className="sb-section">Main</div>
       {navItems.map(item => (

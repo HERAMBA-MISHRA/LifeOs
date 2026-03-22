@@ -1,16 +1,37 @@
-# React + Vite
+# Paced
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Paced — Your Progress, Organised.**
 
-Currently, two official plugins are available:
+A full-featured personal productivity dashboard built with React + Vite. Track your habits, todos, goals, journal, and weekly reviews — all in one beautifully designed dark-mode app.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- 📔 **Journal** — Daily entries with PIN lock security
+- ✅ **Todos** — Tasks with priority levels and filtering
+- 🔁 **Habits** — Weekly habit tracker with streaks
+- 🎯 **Goals** — Progress tracking with milestones
+- 📊 **Analytics** — Visual progress breakdowns
+- 🗓️ **Weekly Review** — AI-powered weekly summaries
+- 🤖 **AI Coach** — Claude-powered personalized coaching
+- 🔒 **Authentication** — Secure login via Clerk
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Getting Started
 
-## Expanding the ESLint configuration
+1. Clone this repository
+2. Run `npm install`
+3. Create a `.env.local` file with your keys:
+   ```
+   VITE_CLERK_PUBLISHABLE_KEY=pk_test_...
+   ANTHROPIC_API_KEY=sk-ant-...
+   ```
+4. Run `npm run dev`
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Deployment
+
+Configured for Vercel via `vercel.json`. The `/api/ai` serverless function handles all AI calls server-side, keeping your API keys secure.
+
+## Build
+
+```bash
+npm run build
+```

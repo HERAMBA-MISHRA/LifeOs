@@ -21,7 +21,7 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         model: 'claude-3-haiku-20240307',
         max_tokens: 1024,
-        system: system || 'You are a helpful LifeOS AI coach.',
+        system: system || 'You are a helpful Paced AI coach.',
         messages: messages || []
       })
     });

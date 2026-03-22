@@ -1,6 +1,6 @@
 import Dexie from 'dexie'
 
-export const db = new Dexie('LifeOSDB')
+export const db = new Dexie('PacedDB')
 db.version(1).stores({
   keyval: 'id, value'
 })
